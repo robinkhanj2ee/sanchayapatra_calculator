@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sanchayapatra Benefit Calculator</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap');
+:root{--navy:#102b46;--green:#087f5b;--mint:#e8f6ef;--gold:#f0b84b;--ink:#182b3a;--muted:#647484;--paper:#f4f7f8;--white:#fff;--border:#e2e9ed}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(135deg,#eaf5ee,#f4f7fb 60%,#eaf0f6);font-family:Inter,'Hind Siliguri',sans-serif;color:var(--ink)}
+header{padding:30px 5vw 26px;background:linear-gradient(115deg,#103c39,#12324d);color:white;position:relative;overflow:hidden}
+header:after{content:"";position:absolute;width:360px;height:360px;border:1px solid #ffffff25;border-radius:50%;right:-120px;top:-200px;box-shadow:0 0 0 35px #ffffff09,0 0 0 75px #ffffff06}
+.head{max-width:1160px;margin:auto;display:flex;justify-content:space-between;align-items:center;gap:20px}.brand{display:flex;gap:14px;align-items:center}.logo{width:55px;height:55px;border-radius:17px;background:#d5f2df;color:#0b5546;display:grid;place-items:center;font-size:27px;font-weight:800;box-shadow:inset 0 0 0 2px #ffffff70}
+h1{font-size:clamp(22px,3vw,34px);margin:0 0 4px;font-weight:800}header p{margin:0;color:#c9e4d9;font-size:14px}.tag{border:1px solid #ffffff35;border-radius:999px;padding:9px 13px;color:#d5eee4;font-size:12px;white-space:nowrap}
+main{max-width:1160px;margin:28px auto;padding:0 18px}.layout{display:grid;grid-template-columns:1.05fr .95fr;gap:20px}.panel{background:white;border:1px solid var(--border);border-radius:22px;padding:24px;box-shadow:0 12px 35px #153c5010}.panel h2{font-size:18px;margin:0 0 18px;color:var(--navy)}
+label{font-size:13px;font-weight:600;color:#3d5263;display:block;margin-bottom:8px}.field{margin-bottom:18px}select,input{width:100%;padding:13px 14px;border:1px solid #dce5e9;border-radius:12px;background:#fbfcfd;font:inherit;color:var(--ink);outline:none}select:focus,input:focus{border-color:#24a078;box-shadow:0 0 0 3px #24a07818}.amount-wrap{position:relative}.amount-wrap span{position:absolute;left:14px;top:13px;color:#788995;font-weight:700}.amount-wrap input{padding-left:50px;font-weight:700}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}.taxnote{font-size:12px;color:var(--muted);background:#f1f7f4;padding:12px;border-radius:12px;margin:0 0 17px;line-height:1.5}
+button{border:0;border-radius:13px;background:linear-gradient(90deg,#07825c,#0e9a72);color:white;font:inherit;font-weight:700;padding:14px 18px;width:100%;cursor:pointer;box-shadow:0 8px 18px #0e8a661c}button:hover{filter:brightness(.97)}
+.results{background:linear-gradient(145deg,#102f48,#134e49);color:white;border-radius:20px;padding:24px;min-height:100%;position:relative;overflow:hidden}.results:after{content:"";position:absolute;right:-90px;bottom:-110px;width:270px;height:270px;border-radius:50%;border:1px solid #ffffff20;box-shadow:0 0 0 30px #ffffff08,0 0 0 60px #ffffff05}
+.results h2{color:white;margin:0 0 6px}.results .sub{color:#bddbd2;font-size:13px;margin-bottom:22px}.big{font-size:32px;font-weight:800;letter-spacing:-.5px;margin:4px 0 5px}.big small{font-size:14px;font-weight:500}.label-light{color:#bedbd3;font-size:12px}.stats{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px;position:relative;z-index:1}.stat{background:#ffffff12;border:1px solid #ffffff1d;border-radius:14px;padding:14px}.stat .value{font-size:20px;font-weight:750;margin:5px 0}.stat .name{font-size:12px;color:#c4dfd5}.payout{border-top:1px solid #ffffff24;margin-top:18px;padding-top:18px;position:relative;z-index:1}.payout strong{font-size:23px}.payout div{color:#c4dfd5;font-size:13px;margin-bottom:4px}
+.detail{margin-top:20px}.detail table{width:100%;border-collapse:collapse}.detail td{padding:11px 8px;border-bottom:1px solid var(--border);font-size:13px}.detail td:last-child{text-align:right;font-weight:700}.detail tr:last-child td{border-bottom:0}
+.ratebox{margin-top:20px}.rategrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.rate{border:1px solid var(--border);border-radius:14px;padding:13px;background:#fbfcfd}.rate b{display:block;color:#087f5b;font-size:18px;margin:5px 0}.rate small{color:var(--muted);font-size:11px}
+.footnote{font-size:12px;color:#667787;line-height:1.65;margin:20px 2px 10px}.footer{margin-top:26px;text-align:center;color:#73828f;font-size:12px;padding:15px}
+@media(max-width:850px){.layout{grid-template-columns:1fr}.head{align-items:flex-start}.tag{display:none}}
+@media(max-width:520px){main{padding:0 12px}.panel{padding:18px}.two{grid-template-columns:1fr}.rategrid{grid-template-columns:1fr 1fr}.big{font-size:27px}}
+</style>
+</head>
+<body>
+<header><div class="head"><div class="brand"><div class="logo">৳</div><div><h1>সঞ্চয়পত্র লাভ ক্যালকুলেটর</h1><p>Sanchayapatra Benefit Calculator · Bangladesh</p></div></div><div class="tag">ব্যক্তিগত হিসাব সহায়ক</div></div></header>
+<main>
+<div class="layout">
+<section class="panel">
+<h2>বিনিয়োগের তথ্য দিন</h2>
+<div class="field"><label for="scheme">সঞ্চয়পত্রের ধরন</label><select id="scheme">
+<option value="family">পরিবার সঞ্চয়পত্র · ৫ বছর</option>
+<option value="quarterly">৩ মাস অন্তর মুনাফাভিত্তিক সঞ্চয়পত্র · ৩ বছর</option>
+<option value="pension">পেনশনার সঞ্চয়পত্র · ৫ বছর</option>
+<option value="fiveyear">৫ বছর মেয়াদি বাংলাদেশ সঞ্চয়পত্র · ৫ বছর</option>
+</select></div>
+<div class="field"><label for="amount">বিনিয়োগের পরিমাণ (টাকা)</label><div class="amount-wrap"><span>৳</span><input type="number" min="1000" step="1000" id="amount" value="500000"></div></div>
+<div class="two">
+<div class="field"><label for="tax">মুনাফার উপর কর / Tax (%)</label><select id="tax"><option value="5">5%</option><option value="10">10%</option><option value="0">0% (পরীক্ষামূলক হিসাব)</option><option value="custom">নিজে লিখুন</option></select></div>
+<div class="field" id="customTaxField" style="display:none"><label for="customTax">Custom tax (%)</label><input type="number" id="customTax" min="0" max="100" step=".5" value="5"></div>
+</div>
+<div class="taxnote">কর হার আপনার প্রকৃত প্রযোজ্য হার অনুযায়ী পরিবর্তন করুন। এই ক্যালকুলেটরটি ছবিতে দেওয়া হারকে আনুমানিক ভিত্তি হিসেবে ব্যবহার করে; সরকারি/ব্যাংক হিসাবের বিকল্প নয়।</div>
+<button id="calculate">হিসাব করুন · Calculate benefits</button>
+<div class="ratebox"><label>ছবিতে থাকা বার্ষিক মুনাফার হার (আনুমানিক)</label><div class="rategrid" id="rategrid"></div></div>
+</section>
+<section class="results" id="results">
+<h2>আপনার হিসাব</h2><div class="sub" id="resultScheme">পরিবার সঞ্চয়পত্র · ৫ বছর</div>
+<div class="label-light">প্রতি মুনাফা কিস্তিতে (কর বাদে)</div><div class="big" id="payout">৳ 0</div>
+<div class="label-light" id="payoutFrequency">প্রতি মাসে</div>
+<div class="stats"><div class="stat"><div class="name">মোট বার্ষিক মুনাফা (কর বাদে)</div><div class="value" id="annual">৳0</div></div><div class="stat"><div class="name">মুনাফা হার</div><div class="value" id="rate">0%</div></div><div class="stat"><div class="name">মোট কর (বার্ষিক)</div><div class="value" id="taxamount">৳0</div></div><div class="stat"><div class="name">মেয়াদ</div><div class="value" id="term">5 বছর</div></div></div>
+<div class="payout"><div>মেয়াদ শেষে মোট আনুমানিক অর্থ</div><strong id="maturity">৳0</strong><div id="maturityNote" style="margin-top:5px">আনুমানিক; প্রকৃত মেয়াদপূর্তি নির্ভর করবে স্কিমের নিয়মের উপর।</div></div>
+</section>
+</div>
+<div class="panel detail"><h2>হিসাবের সারাংশ</h2><table><tbody>
+<tr><td>প্রাথমিক বিনিয়োগ</td><td id="principal">৳0</td></tr>
+<tr><td>মুনাফার হার (বার্ষিক)</td><td id="grossRate">0%</td></tr>
+<tr><td>কর হার</td><td id="taxRate">0%</td></tr>
+<tr><td>কর বাদে বার্ষিক মুনাফা</td><td id="netAnnual">৳0</td></tr>
+<tr><td>মেয়াদ জুড়ে মোট প্রাপ্ত মুনাফা (আনুমানিক)</td><td id="totalProfit">৳0</td></tr>
+</tbody></table></div>
+<p class="footnote">দ্রষ্টব্য: ছবির তথ্য থেকে হারগুলো পড়ে নেওয়া হয়েছে, এবং সেগুলো যাচাই করা সরকারি বিজ্ঞপ্তি নয়। বিনিয়োগের সীমা, কর, মুনাফা প্রদানের সময়, মেয়াদপূর্তি ও প্রযোজ্য হার সরকারি বিধি/আপনার ক্রয় তারিখ অনুযায়ী পরিবর্তিত হতে পারে। এই টুলটি শিক্ষামূলক ও পরিকল্পনামূলক অনুমান দেয়।</p>
+<div class="footer">Sanchayapatra Calculator · Bangladesh · Built for simple planning</div>
+</main>
+<script>
+const schemes={
+ family:{name:'পরিবার সঞ্চয়পত্র · ৫ বছর',rates:[11.52,11.52,10.50,9.50],tiers:[500000,1500000,3000000],period:1,term:5,frequency:'প্রতি মাসে',type:'income'},
+ quarterly:{name:'৩ মাস অন্তর মুনাফাভিত্তিক সঞ্চয়পত্র · ৩ বছর',rates:[11.04,11.04,10.00,9.00],tiers:[500000,1500000,3000000],period:3,term:3,frequency:'প্রতি ৩ মাসে',type:'income'},
+ pension:{name:'পেনশনার সঞ্চয়পত্র · ৫ বছর',rates:[11.76,11.76,10.75,9.75],tiers:[500000,1500000,3000000],period:3,term:5,frequency:'প্রতি ৩ মাসে',type:'income'},
+ fiveyear:{name:'৫ বছর মেয়াদি বাংলাদেশ সঞ্চয়পত্র · ৫ বছর',rates:[11.28,11.28,10.50,9.50],tiers:[500000,1500000,3000000],period:0,term:5,frequency:'মেয়াদ শেষে',type:'maturity'}
+};
+const fmt=n=>'৳ '+Math.round(n).toLocaleString('en-IN');
+const el=id=>document.getElementById(id);
+function tierIndex(a){if(a<=500000)return 0;if(a<=1500000)return 1;if(a<=3000000)return 2;return 3}
+function calc(){
+ const key=el('scheme').value,s=schemes[key],a=Math.max(0,Number(el('amount').value)||0),ti=tierIndex(a),r=s.rates[ti]/100;
+ let tax=el('tax').value==='custom'?Math.max(0,Number(el('customTax').value)||0)/100:Number(el('tax').value)/100;
+ let gross=a*r,net=gross*(1-tax),per= s.period?net*s.period/12:0;
+ let totalProfit=net*s.term;
+ let maturity=s.type==='maturity'?a*Math.pow(1+r*(1-tax),s.term):a;
+ // Payout for income schemes is periodic; maturity is principal only. For maturity-based scheme, display estimated compound value.
+ el('resultScheme').textContent=s.name;el('payout').textContent=s.type==='maturity'?fmt(maturity-a):fmt(net*(s.period||1)/12);
+ el('payoutFrequency').textContent=s.type==='maturity'?'আনুমানিক মেয়াদপূর্তির মুনাফা':'প্রতি '+(s.period===1?'মাসে':s.period===3?'৩ মাসে':'কিস্তিতে');
+ el('annual').textContent=fmt(net);el('rate').textContent=(s.rates[ti]).toFixed(2)+'%';el('taxamount').textContent=fmt(gross*tax);el('term').textContent=s.term+' বছর';
+ el('maturity').textContent=s.type==='maturity'?fmt(maturity):fmt(a);el('maturityNote').textContent=s.type==='maturity'?'চক্রবৃদ্ধি ও করের ভিত্তিতে আনুমানিক; সরকারি সূত্রে যাচাই করুন।':'এখানে মূল বিনিয়োগ দেখানো হয়েছে; নিয়ম অনুযায়ী ফেরতযোগ্য মূলধন।';
+ el('principal').textContent=fmt(a);el('grossRate').textContent=s.rates[ti].toFixed(2)+'%';el('taxRate').textContent=(tax*100).toFixed(2)+'%';el('netAnnual').textContent=fmt(net);el('totalProfit').textContent=fmt(totalProfit);
+ el('rategrid').innerHTML=s.rates.map((v,i)=>`<div class="rate"><small>${['≤ ৳৫ লাখ','৳৫–১৫ লাখ','৳১৫–৩০ লাখ','৳৩০ লাখ+'][i]}</small><b>${v.toFixed(2)}%</b><small>বার্ষিক</small></div>`).join('');
+}
+el('tax').addEventListener('change',()=>{el('customTaxField').style.display=el('tax').value==='custom'?'block':'none';calc()});
+el('scheme').addEventListener('change',calc);el('amount').addEventListener('input',calc);el('customTax').addEventListener('input',calc);el('calculate').addEventListener('click',calc);calc();
+</script>
+</body>
+</html>
